@@ -8,15 +8,15 @@ $category = $_POST['category'];
 
 if (empty($keyword)) {
     $n = 0;
-    $data = $koneksi->query("SELECT * FROM users  WHERE level='admin' ORDER BY id LIMIT 5");
+    $data = $koneksi->query("SELECT * FROM dosen ORDER BY nidn LIMIT 5");
 } else {
     $n = 0;
     if ($category == 1) {
-        $data = $koneksi->query("SELECT * FROM users WHERE nidn LIKE '%$keyword%' AND level='admin'");
+        $data = $koneksi->query("SELECT * FROM dosen WHERE nidn LIKE '%$keyword%'");
     } elseif ($category == 2) {
-        $data = $koneksi->query("SELECT * FROM users WHERE username LIKE '%$keyword%' AND level='admin'");
+        $data = $koneksi->query("SELECT * FROM dosen WHERE nama LIKE '%$keyword%'");
     } elseif ($category == 3) {
-        $data = $koneksi->query("SELECT * FROM users WHERE gender LIKE '%$keyword%' AND level='admin'");
+        $data = $koneksi->query("SELECT * FROM dosen WHERE gender LIKE '%$keyword%'");
     } 
 }
 
@@ -32,13 +32,13 @@ if (empty($keyword)) {
             <!--begin::Row-->
             <div class="row">
               <!--begin::Col-->
-              <div class="col-sm-6"><h3 class="mb-0">Data Admin</h3></div>
+              <div class="col-sm-6"><h3 class="mb-0">Data Dosen</h3></div>
               <!--end::Col-->
               <!--begin::Col-->
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
                   <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Daftar Admin</li>
+                  <li class="breadcrumb-item active" aria-current="page">Data Dosen</li>
                 </ol>
               </div>
               <!--end::Col-->
@@ -61,7 +61,7 @@ if (empty($keyword)) {
                   <!--begin::Card Header-->
                   <div class="card-header">
                     <!--begin::Card Title-->
-                    <h3 class="card-title">Daftar Admin</h3>
+                    <h3 class="card-title">Data Dosen</h3>
                     <!--end::Card Title-->
                     <!--begin::Card Toolbar-->
                     <div class="card-tools">
@@ -90,11 +90,14 @@ if (empty($keyword)) {
                       <!-- Button trigger modal -->
                     
                       <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Tambah Admin
+                        Tambah Dosen
                       </button> -->
                      <div class="d-flex justify-content-between align-items-center mb-3">
                         <table>
                 <tr>
+                    <td>
+                        <a href="./?p=add-dosen" class="btn btn-success btn-sm">Tambah dosen</a>
+                    </td>
                     <td>
                         <form method="post" action="#">
                             <input type="text" name="keyword" placeholder="Keyword"
@@ -103,7 +106,7 @@ if (empty($keyword)) {
                                 value="<?=$keyword?>" />
 
                             <select name="category">
-                                <option value="1" <?php if ($category==1) echo "selected"; ?>>NIDN</option>
+                                <option value="1" <?php if ($category==1) echo "selected"; ?>>nidn</option>
                                 <option value="2" <?php if ($category==2) echo "selected"; ?>>Nama</option>
                                 <option value="3" <?php if ($category==3) echo "selected"; ?>>Gender</option>
                             </select>
@@ -118,7 +121,7 @@ if (empty($keyword)) {
                     </div>
                     
                       <table class=" table table-striped ">
-                        <tr><th>No</th><th>Nama</th><th>Gender</th><th>nidn</th><th>No hp</th><th>Opsi</th></tr>
+                        <tr><th>No</th><th>Nama</th><th>Gender</th><th>nidn</th><th>Prodi</th><th>Opsi</th></tr>
                         <?php
                             if ($data->num_rows == 0){
                                 echo "<tr><td colspan='6' class='text-center'>Data tidak ditemukan</td></tr>";
@@ -127,12 +130,14 @@ if (empty($keyword)) {
                                 $n++;
                                  echo "<tr>
                                           <td>$n</td>
-                                          <td>$d[username]</td>
+                                          <td>$d[nama]</td>
                                           <td>$d[gender]</td>
                                           <td>$d[nidn]</td>
-                                          <td>$d[hp]</td>
+                                          <td>$d[prodi]</td>
                                           <td class=' gap-2'>
-                                              <a href='./?p=detail-users&id=$d[id]' class='btn btn-info'>Detail</a>
+                                              <a href='./?p=detail-dosen&id=$d[id]' class='btn btn-info'>Detail</a>
+                                              <a href='./?p=hapus-dosen&id=$d[id]' class='btn btn-danger'>Hapus</a>
+                                              <a href='./?p=edit-dosen&id=$d[id]' class='btn btn-warning'>Edit</a>
                                           </td>
                                         </tr>";
                             } 

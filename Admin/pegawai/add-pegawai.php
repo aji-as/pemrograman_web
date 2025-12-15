@@ -1,3 +1,33 @@
+<?php
+
+
+if (isset($_POST['simpan'])) {
+    // Sanitize input data to prevent SQL injection
+    $nik    = ($_POST['nik']);
+    $nama   = ($_POST['nama']);
+    $jk     =  ($_POST['jk']);
+    $alamat = ($_POST['alamat']);
+    $hp  = ($_POST['hp']);
+
+    $waktu = date("Y-m-d H:i:s");
+  
+    require_once "../config.php";
+    $sql = "INSERT INTO pegawai SET 
+            nama='$nama',
+            gender='$jk',
+            alamat ='$alamat',
+            hp='$hp',
+            nik='$nik',
+            waktu='$waktu'";
+
+    $koneksi->query($sql);
+    
+}
+?>
+
+
+
+
 <main class="app-main">
         <!--begin::App Content Header-->
         <div class="app-content-header">
@@ -6,7 +36,7 @@
             <!--begin::Row-->
             <div class="row">
               <!--begin::Col-->
-              <div class="col-sm-6"><h3 class="mb-0">Dashboard Pegawai</h3></div>
+              <div class="col-sm-6"><h3 class="mb-0">Dashboard admin</h3></div>
               <!--end::Col-->
               <!--begin::Col-->
               <div class="col-sm-6">
@@ -35,7 +65,7 @@
                   <!--begin::Card Header-->
                   <div class="card-header">
                     <!--begin::Card Title-->
-                    <h3 class="card-title">Data Pegawi</h3>
+                    <h3 class="card-title">Data Admin</h3>
                     <!--end::Card Title-->
                     <!--begin::Card Toolbar-->
                     <div class="card-tools">
@@ -55,24 +85,57 @@
                     <!--end::Card Toolbar-->
                   </div>
                   <!--end::Card Header-->
-                  <!--begin::Card Body-->
+                   <!--begin::Card Body-->
                   <div class="card-body p-4">
                     <!--begin::Row-->
                     <div class="row">
                       <!--begin::Col-->
-                      <a href="#" class="btn btn-success mb-3" style="width: 150px;">tambah</a>
-                      <table class=" table table-striped ">
-                        <tr><th>No</th><th>Nama</th><th>NIP</th><th>Opsi</th></tr>
-                        <tr><td>1</td><td>HHHH</td><td>000000000</td><td class="d-flex gap-2"><a href="#" class="btn btn-danger">Hapus</a><a href="#" class="btn btn-warning">Edit</a></td></tr>
-                        <tr><td>1</td><td>HHHH</td><td>000000000</td><td class="d-flex gap-2"><a href="#" class="btn btn-danger">Hapus</a><a href="#" class="btn btn-warning">Edit</a></td></tr>
-                        <tr><td>1</td><td>HHHH</td><td>000000000</td><td class="d-flex gap-2"><a href="#" class="btn btn-danger">Hapus</a><a href="#" class="btn btn-warning">Edit</a></td></tr>
-                        <tr><td>1</td><td>HHHH</td><td>000000000</td><td class="d-flex gap-2"><a href="#" class="btn btn-danger">Hapus</a><a href="#" class="btn btn-warning">Edit</a></td></tr>
-                        <tr><td>1</td><td>HHHH</td><td>000000000</td><td class="d-flex gap-2"><a href="#" class="btn btn-danger">Hapus</a><a href="#" class="btn btn-warning">Edit</a></td></tr>
-                      </table>
+                     <div class="row">
+                  <form method="post" action="#">
+                    <table>
+                        <tr>
+                            <td>nik</td>
+                            <td><input type="number" name="nik" class="form-control" value="<?= $nik ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Nama Lengkap</td>
+                            <td><input type="text" name="nama" class="form-control" value="<?= $nama ?>"></td>
+                        </tr>
+                        <tr>
+                            <td>Jenis Kelamin</td>
+                            <td>
+                                <input type="radio" name="jk" value="L" id="jkL" <?php if ($jk == "L") echo "checked"; ?>>
+                                <label for="jkL">Laki-laki</label>
+                                <input type="radio" name="jk" value="P" id="jkP" <?php if ($jk == "P") echo "checked"; ?>>
+                                <label for="jkP">Perempuan</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Alamat</td>
+                            <td>
+                                <textarea name="alamat" class="form-control" style="width:300px"><?= $alamat ?></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>No hp</td>
+                            <td>
+                                <input type="text" name="hp" class="form-control" value="<?= $hp ?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" name="simpan" value="Simpan" class="btn btn-primary"></td>
+                        </tr>
+                    </table>
+                  </form>
+
+              </div>
+
                      
                     <!--end::Row-->
                   </div>
                   <!--end::Card Body-->
+              
                 </div>
                 <!--end::Card-->
                 
@@ -85,5 +148,4 @@
         </div>
         <!--end::App Content-->
       </main>
-
       

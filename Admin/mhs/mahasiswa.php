@@ -6,6 +6,8 @@ require_once "../config.php";
 $keyword = $_POST['keyword'];
 $category = $_POST['category'];
 
+
+
 if (empty($keyword)) {
     $n = 0;
     $data = $koneksi->query("SELECT * FROM mhs ORDER BY nim LIMIT 5");
@@ -106,7 +108,7 @@ if (empty($keyword)) {
                         <table>
                 <tr>
                     <td>
-                        <a href="./?page=add-mhs" class="btn btn-success btn-sm">Add Student</a>
+                        <a href="./?p=add-mhs" class="btn btn-success btn-sm">Add mahasiswa</a>
                     </td>
                     <td>
                         <form method="post" action="#">

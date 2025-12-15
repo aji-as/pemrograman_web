@@ -72,8 +72,8 @@
 
             if ($_POST['simpan']){
                   require_once 'config.php';
-                  $username = $_POST['username'];
-                  $password = $_POST['password'];
+                  $username = str_replace("''","", $_POST['username']);
+                  $password = str_replace("''","",$_POST['password']);
                   $query = "SELECT * FROM users WHERE username='$username' AND password=md5('$password')";
                   $result = $koneksi->query($query);
                   $ready = $result->num_rows;
